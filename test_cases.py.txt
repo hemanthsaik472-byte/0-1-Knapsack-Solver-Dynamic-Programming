@@ -1,0 +1,93 @@
+# ============================================================
+#   Test Cases — 0/1 Knapsack Solver
+# ============================================================
+
+from knapsack import knapsack
+
+
+def test(description, weights, values, capacity, expected_value):
+    max_val, selected = knapsack(weights, values, capacity)
+    status = "PASS" if max_val == expected_value else "FAIL"
+    print(f"[{status}] {description}")
+    if status == "FAIL":
+        print(f"       Expected: {expected_value}, Got: {max_val}")
+    else:
+        print(f"       Max Value: {max_val} | Items selected: {selected}")
+
+
+def run_all_tests():
+    print("=" * 55)
+    print("          Running Test Cases")
+    print("=" * 55 + "\n")
+
+    test(
+        description="Basic test — 4 items, capacity 5",
+        weights=[1, 2, 3, 5],
+        values=[1, 6, 10, 16],
+        capacity=5,
+        expected_value=16
+    )
+
+    test(
+        description="Single item fits",
+        weights=[3],
+        values=[10],
+        capacity=5,
+        expected_value=10
+    )
+
+    test(
+        description="Single item too heavy",
+        weights=[6],
+        values=[10],
+        capacity=5,
+        expected_value=0
+    )
+
+    test(
+        description="All items fit",
+        weights=[1, 1, 1],
+        values=[5, 5, 5],
+        capacity=10,
+        expected_value=15
+    )
+
+    test(
+        description="Zero capacity",
+        weights=[1, 2, 3],
+        values=[10, 20, 30],
+        capacity=0,
+        expected_value=0
+    )
+
+    test(
+        description="Empty item list",
+        weights=[],
+        values=[],
+        capacity=10,
+        expected_value=0
+    )
+
+    test(
+        description="Large capacity — all items selected",
+        weights=[2, 3, 4],
+        values=[3, 4, 5],
+        capacity=100,
+        expected_value=12
+    )
+
+    test(
+        description="Classic textbook example",
+        weights=[2, 3, 4, 5],
+        values=[3, 4, 5, 6],
+        capacity=8,
+        expected_value=10
+    )
+
+    print("\n" + "=" * 55)
+    print("  All tests completed.")
+    print("=" * 55)
+
+
+if __name__ == "__main__":
+    run_all_tests()
